@@ -15,22 +15,20 @@ import javax.servlet.http.HttpServletResponse;
 import entity.ChatUser;
 
 
-@WebServlet(
-		urlPatterns = { "/login" }, 
-		initParams = { 
-				@WebInitParam(name = "SESSION_TIMEOUT", value = "3600")
-		})
+
+
+@WebServlet("/login")
 public class LoginServlet extends ChatServlet {
 	private static final long serialVersionUID = 1L;
 
 	private int sessionTimeout = 600;
 
-	public void init(ServletConfig config) throws ServletException {
-		//super.init();
-		/*String value = getServletConfig().getInitParameter("SESSION_TIMEOUT");
+	public void init() throws ServletException {
+		super.init();
+		String value = getServletConfig().getInitParameter("SESSION_TIMEOUT");
 		if (value!=null) {
 		    sessionTimeout = Integer.parseInt(value);
-		}*/
+		}
 	}
 
 	
@@ -93,8 +91,6 @@ public class LoginServlet extends ChatServlet {
 		request.setCharacterEncoding("UTF-8");
 		// Извлечь из HTTP-запроса значение параметра 'name'
 		String name = (String)request.getParameter("name");
-		System.out.println(name);
-		//System.out.println(request);
 		// Полагаем, что изначально ошибок нет
 		String errorMessage = null;
 		
@@ -149,7 +145,7 @@ public class LoginServlet extends ChatServlet {
 	        // Добавить cookie в HTTP-ответ
 	        response.addCookie(sessionIdCookie);
 	        // Перейти к главному окну чата
-	        response.sendRedirect(response.encodeRedirectURL("/chat/view.htm"));
+	        response.sendRedirect(response.encodeRedirectURL("/chat/compose-message.html"));
 	        // Вернуть null, т.е. сообщений об ошибках нет
 	         return null;
 	    }else {
