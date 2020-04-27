@@ -14,7 +14,15 @@ import entity.ChatUser;
 @WebServlet("/new_message")
 public class NewMessageServlet extends ChatServlet {
 	private static final long serialVersionUID = 1L;
-
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if((String)request.getSession().getAttribute("name") == null){
+			//response.sendError(404, "Несанкционированный просмотр чата!!!! Ай Ай АЙ ");
+			System.out.println((String)request.getSession().getAttribute("name"));
+			response.sendRedirect("/chat/error.htm");
+		}
+		else response.sendRedirect("/chat/compose-message.html");
+	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// По умолчанию используется кодировка ISO-8859. Так как мы
 		// передаѐм данные в кодировке UTF-8

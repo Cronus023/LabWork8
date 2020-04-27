@@ -20,7 +20,8 @@ public class MessageListServlet extends ChatServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if((String)request.getSession().getAttribute("name") == null){
-			response.sendError(404, "Несанкционированный просмотр чата!!!! Ай Ай АЙ ");
+			//response.sendError(404, "Несанкционированный просмотр чата!!!! Ай Ай АЙ ");
+			response.sendRedirect("/chat/error.htm");
 		}
 		// Установить кодировку HTTP-ответа UTF-8
 		response.setCharacterEncoding("utf8");
